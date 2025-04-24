@@ -4,11 +4,21 @@ import random
 from PIL import Image
 import numpy as np
 
+
+
 # Set page configuration
 st.set_page_config(
     page_title="Tokenizer Playground",
     layout="centered"
 )
+
+st.markdown("""
+    <style>
+    [data-testid="stHeaderActionElements"] {
+        display: none !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
 # Load the tokenizer
 @st.cache_resource
@@ -80,11 +90,18 @@ if st.button("Analyze"):
         highlighted_text, token_count, char_count = highlight_tokens(text_input)
 
         # Display KPIs
-        col1, col2 = st.columns(2)
-        with col1:
-            st.metric("TOKENS", token_count)
-        with col2:
-            st.metric("CHARACTERS", char_count)
+        st.markdown("""
+            <div style="display: flex; justify-content: center; gap: 40px; margin-top: 20px;">
+                <div style="background-color: #000000; padding: 20px; border-radius: 10px; text-align: center; min-width: 120px; width: 200px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    <h4 style="margin: 0; font-size: 16px;">TOKENS</h4>
+                    <p style="margin: 2px 0 0; font-size: 34px; font-weight: bold;">{}</p>
+                </div>
+                <div style="background-color: #000000; padding: 20px; border-radius: 10px; text-align: center; min-width: 120px; width: 200px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    <h4 style="margin: 0; font-size: 16px;">CHARACTERS</h4>
+                    <p style="margin: 5px 0 0; font-size: 34px; font-weight: bold;">{}</p>
+                </div>
+            </div>
+        """.format(token_count, char_count), unsafe_allow_html=True)
 
         # Display highlighted tokens
         st.markdown("### Result:")
