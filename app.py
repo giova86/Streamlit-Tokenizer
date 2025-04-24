@@ -90,4 +90,5 @@ if st.button("Analyze"):
         st.markdown("### Result:")
         st.markdown(f'<div style="border: 1px solid #ccc; padding: 10px; border-radius: 5px;">{highlighted_text}</div>', unsafe_allow_html=True)
     else:
-        st.warning("Please enter some text to analyze.")
+        # st.warning("Please enter some text to analyze.")
+        pass
