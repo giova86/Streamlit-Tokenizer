@@ -3,6 +3,9 @@ from transformers import AutoTokenizer
 import random
 from PIL import Image
 import numpy as np
+from utils.functions import support_icon
+from io import BytesIO
+import base64
 
 
 
@@ -11,6 +14,10 @@ st.set_page_config(
     page_title="Tokenizer Playground",
     layout="centered"
 )
+
+with open("style.css") as f:
+    st.markdown('<style>{}</style>'.format(f.read()), unsafe_allow_html=True)
+
 
 st.markdown("""
     <style>
@@ -75,7 +82,22 @@ def highlight_tokens(raw_text):
 try:
     # Try to load the icon
     icon = Image.open("header.png")
-    st.image(icon, use_container_width=True)
+
+    # Converti l'immagine in base64
+    buffered = BytesIO()
+    icon.save(buffered, format="PNG")
+    img_base64 = base64.b64encode(buffered.getvalue()).decode()
+
+    # HTML per centrare l'immagine
+    st.markdown(
+        f"""
+        <div style="text-align: center; padding-bottom: 20px"">
+            <img src="data:image/png;base64,{img_base64}" width="500px",>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
 except FileNotFoundError:
     # Use a placeholder icon
     st.title("Tokenizer Playground")
@@ -83,7 +105,7 @@ except FileNotFoundError:
 st.caption("Using BERT Tokenizer (bert-base-uncased)")
 
 # Input text area
-text_input = st.text_area("Enter text:", height=150)
+text_input = st.text_area("Enter text:", height=100)
 
 if st.button("Analyze"):
     if text_input:
@@ -109,3 +131,15 @@ if st.button("Analyze"):
     else:
         # st.warning("Please enter some text to analyze.")
         pass
+
+
+
+# -- SUPPORT BUTTON ------------------------------
+support_icon(
+  "static/icon_support_new.png",
+  "static/icon_telegram.png",
+  "static/icon_whatsapp.png",
+  "static/icon_mail.png",
+  "mailto:giovanni.bocchi@gmail.com?subject=Giovanni Bocchi Portfolio - Supporto&body=Ciao Giovanni!"
+)
+# ------------------------------------------------

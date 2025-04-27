@@ -1,0 +1,40 @@
+ul {
+    padding-left: 1.5rem;
+  }
+
+h1, h3 {
+    text-align:center;
+}
+
+h2 {
+  color: #16A2CB !important;
+  padding-top: 50px;
+}
+
+h5 {
+    text-align:center;
+}
+
+#MainMenu {
+    /* visibility: hidden; */
+}
+
+footer {
+    visibility: hidden;
+}
+
+header {
+    visibility: hidden;
+}
+
+[data-testid="stHeaderActionElements"] {
+    display: none !important;
+}
+
+.block-container {
+    max-width: 1400px;
+    padding-bottom: 80px;
+    padding-left: 30px;
+    padding-right: 30px;
+    }
+}
